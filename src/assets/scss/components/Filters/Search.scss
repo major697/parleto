@@ -1,0 +1,14 @@
+.search {
+   &__input {
+      border: 1px solid map-get($colors, gray);
+      border-radius: $borderRadius;
+      height: $heightFilter;
+      box-sizing: border-box;
+      padding: 0 map-get($margins, m1);
+      font-size: map-get($fontSizes, medium);
+
+      &:focus {
+         outline: none;
+      }
+   }
+}

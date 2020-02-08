@@ -7,4 +7,19 @@
       text-align: center;
       color: map-get($colors, green);
    }
+
+   &__filters {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: flex-end;
+      width: 100%;
+      min-height: 50px;
+      align-items: center;
+      border-radius: $borderRadius;
+
+      &--bottom {
+         background-color: map-get($colors, backFilter);
+         justify-content: flex-start;
+      }
+   }
 }

@@ -1,0 +1,18 @@
+.filters {
+   border: 1px solid map-get($colors, gray);
+   padding: map-get($margins, m1) map-get($margins, m2);
+   margin: map-get($margins, m1);
+   font-size: map-get($fontSizes, medium);
+   cursor: pointer;
+   background-color: map-get($colors, white);
+   transition: all $transition;
+   border-radius: $borderRadius;
+
+   &:hover {
+      background-color: map-get($colors, lightGray);
+   }
+   
+   &:focus {
+      outline: none;
+   }
+}

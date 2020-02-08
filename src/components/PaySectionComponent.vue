@@ -3,7 +3,7 @@
       <table class="table table--small">
          <tr class="table__header">
             <th class="table__header__title">Dział</th>
-            <th class="table__header__title">Wynagrodzenie</th>
+            <th class="table__header__title">Wynagrodzenie całkowite</th>
          </tr>
          <tr class="table-body" v-for="(pay, section) in getPayAndSection" :key="section">
             <td class="table-body__element">{{ section }}</td>
@@ -26,19 +26,11 @@ export default {
    name: 'PaySectionComponent',
    computed: {
       getPayAndSection() {
-         let paySection = {};
-         this.GET_WORKERS().forEach(data => {
-            if (paySection.hasOwnProperty(data.section)) {
-               paySection[data.section] = paySection[data.section] + parseFloat(data.pay);
-            } else {
-               paySection[data.section] = parseFloat(data.pay);
-            }
-         });
-         return paySection;
+         return this.GET_WORKERS_PAY_SECTION();
       },
    },
    methods: {
-      ...mapGetters('WorkersModule', [GettersWorkers.GET_WORKERS]),
+      ...mapGetters('WorkersModule', [GettersWorkers.GET_WORKERS_PAY_SECTION]),
    },
 };
 </script>

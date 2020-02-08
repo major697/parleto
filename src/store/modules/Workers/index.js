@@ -10,6 +10,8 @@ const WorkersModule = {
       filterSelect: {
          search: null,
          section: null,
+         payFrom: null,
+         payTo: null,
       },
    },
    actions: {
@@ -21,6 +23,12 @@ const WorkersModule = {
       },
       [ActionsWorkers.FETCH_SECTION]({ commit }, payload) {
          commit(MutationsWorkers.SET_SECTION, payload);
+      },
+      [ActionsWorkers.FETCH_PAY_FROM]({ commit }, payload) {
+         commit(MutationsWorkers.SET_PAY_FROM, payload);
+      },
+      [ActionsWorkers.FETCH_PAY_TO]({ commit }, payload) {
+         commit(MutationsWorkers.SET_PAY_TO, payload);
       },
       [ActionsWorkers.FETCH_FILTERS]({ commit, state }) {
          let search = state.workerAll;
@@ -64,6 +72,36 @@ const WorkersModule = {
             });
          }
 
+         if (state.filterSelect.payFrom) {
+            search = search.filter(worker => {
+               const dataFilter = {
+                  pay: worker.pay,
+               };
+
+               for (let key in dataFilter) {
+                  if (parseFloat(worker[key]) >= state.filterSelect.payFrom) {
+                     return true;
+                  }
+               }
+               return false;
+            });
+         }
+
+         if (state.filterSelect.payTo) {
+            search = search.filter(worker => {
+               const dataFilter = {
+                  pay: worker.pay,
+               };
+
+               for (let key in dataFilter) {
+                  if (parseFloat(worker[key]) <= state.filterSelect.payTo) {
+                     return true;
+                  }
+               }
+               return false;
+            });
+         }
+
          commit(MutationsWorkers.SET_FETCH_FILTERS, search);
       },
    },
@@ -77,6 +115,12 @@ const WorkersModule = {
       },
       [MutationsWorkers.SET_SECTION](state, payload) {
          state.filterSelect.section = payload;
+      },
+      [MutationsWorkers.SET_PAY_FROM](state, payload) {
+         state.filterSelect.payFrom = payload;
+      },
+      [MutationsWorkers.SET_PAY_TO](state, payload) {
+         state.filterSelect.payTo = payload;
       },
       [MutationsWorkers.SET_FETCH_FILTERS](state, payload) {
          state.workers = payload;

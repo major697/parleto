@@ -57,6 +57,8 @@ export default {
          ActionsWorkers.FETCH_FILTERS,
          ActionsWorkers.FETCH_SEARCH,
          ActionsWorkers.FETCH_SECTION,
+         ActionsWorkers.FETCH_PAY_FROM,
+         ActionsWorkers.FETCH_PAY_TO,
       ]),
       ...mapGetters('WorkersModule', [GettersWorkers.GET_WORKERS_SECTION]),
       storeSelectedSection(filter) {
@@ -71,12 +73,13 @@ export default {
          this.FETCH_SECTION(this.selectedSection);
          this.FETCH_FILTERS();
       },
-      sendFilterPay() {},
       filterPayFrom(value) {
-         this.sendFilterPay(parseFloat(value));
+         this.FETCH_PAY_FROM(value);
+         this.FETCH_FILTERS();
       },
       filterPayTo(value) {
-         this.sendFilterPay(parseFloat(value));
+         this.FETCH_PAY_TO(value);
+         this.FETCH_FILTERS();
       },
       filterSearch(value) {
          this.FETCH_SEARCH(value);

@@ -3,6 +3,8 @@ const ActionsWorkers = {
    FETCH_FILTERS: 'FETCH_FILTERS',
    FETCH_SEARCH: 'FETCH_SEARCH',
    FETCH_SECTION: 'FETCH_SECTION',
+   FETCH_PAY_FROM: 'FETCH_PAY_FROM',
+   FETCH_PAY_TO: 'FETCH_PAY_TO',
 };
 
 const MutationsWorkers = {
@@ -10,6 +12,8 @@ const MutationsWorkers = {
    SET_FETCH_FILTERS: 'SET_FETCH_FILTERS',
    SET_SEARCH: 'SET_SEARCH',
    SET_SECTION: 'SET_SECTION',
+   SET_PAY_FROM: 'SET_PAY_FROM',
+   SET_PAY_TO: 'SET_PAY_TO',
 };
 
 const GettersWorkers = {

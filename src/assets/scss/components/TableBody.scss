@@ -1,0 +1,10 @@
+.table-body {
+   color: map-get($colors, black);
+
+   &__element {
+      padding: map-get($margins, m2);
+      text-align: center;
+      border-right: 1px solid map-get($colors, lightGray);
+      border-left: 1px solid map-get($colors, lightGray);
+   }
+}

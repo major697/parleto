@@ -1,0 +1,22 @@
+.cnt {
+   margin-top: map-get($margins, m4);
+}
+
+.table {
+   width: 100%;
+   border-collapse: collapse;
+
+   &--small {
+      width: auto;
+   }
+
+   &__header {
+      color: map-get($colors, gray);
+
+      &__title {
+         padding: map-get($margins, m1) map-get($margins, m2);
+         font-weight: normal;
+         border: 1px solid map-get($colors, lightGray);
+      }
+   }
+}

@@ -1,0 +1,24 @@
+@import './fonts';
+
+$fontBook: 'AvenirBook';
+
+$colors: (
+   black: #000000,
+   green: #00ddc2,
+   lightGreen: #e6fcf9,
+   lightGray: #e0e0e0,
+   gray: #a3a3a3,
+);
+
+$fontSizes: (
+   body: 16px,
+   bigTitle: 24px,
+);
+
+$margins: (
+   m1: 5px,
+   m2: 10px,
+   m3: 15px,
+   m4: 20px,
+   m5: 30px,
+);

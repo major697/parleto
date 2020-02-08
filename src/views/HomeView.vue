@@ -2,7 +2,15 @@
    <div class="home">
       <div class="home__title">Tabela pracowników</div>
       <div class="home__filters">
-         <SearchComponent />
+         <div class="home__filters__section">
+            <span>Wynagrodzenie: </span>
+            <InputComponent placeholder="Od" size="1" @filterValue="filterPayFrom" />
+            <InputComponent placeholder="Do" size="1" @filterValue="filterPayTo" />
+         </div>
+         <div class="home__filters__section">
+            <span>Szukaj: </span>
+            <InputComponent placeholder="Osoba" size="20" @filterValue="filterSearch" />
+         </div>
       </div>
       <div class="home__filters home__filters--bottom">
          <FlterButtonComponent
@@ -33,7 +41,7 @@ export default {
       };
    },
    components: {
-      SearchComponent: () => import('@/components/Filters/SearchComponent'),
+      InputComponent: () => import('@/components/Filters/InputComponent'),
       FlterButtonComponent: () => import('@/components/Filters/FlterButtonComponent'),
       TableComponent: () => import('@/components/TableComponent'),
       PaySectionComponent: () => import('@/components/PaySectionComponent'),
@@ -46,7 +54,9 @@ export default {
    methods: {
       ...mapActions('WorkersModule', [
          ActionsWorkers.FETCH_WORKERS,
-         ActionsWorkers.FETCH_SELECT_FILTERS_WORKERS,
+         ActionsWorkers.FETCH_FILTERS,
+         ActionsWorkers.FETCH_SEARCH,
+         ActionsWorkers.FETCH_SECTION,
       ]),
       ...mapGetters('WorkersModule', [GettersWorkers.GET_WORKERS_SECTION]),
       storeSelectedSection(filter) {
@@ -58,7 +68,19 @@ export default {
       },
       selectFilter(filter) {
          this.storeSelectedSection(filter);
-         this.FETCH_SELECT_FILTERS_WORKERS(this.selectedSection);
+         this.FETCH_SECTION(this.selectedSection);
+         this.FETCH_FILTERS();
+      },
+      sendFilterPay() {},
+      filterPayFrom(value) {
+         this.sendFilterPay(parseFloat(value));
+      },
+      filterPayTo(value) {
+         this.sendFilterPay(parseFloat(value));
+      },
+      filterSearch(value) {
+         this.FETCH_SEARCH(value);
+         this.FETCH_FILTERS();
       },
    },
    mounted() {

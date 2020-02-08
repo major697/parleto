@@ -11,7 +11,7 @@
    &__filters {
       display: flex;
       flex-flow: row wrap;
-      justify-content: flex-end;
+      justify-content: space-between;
       width: 100%;
       min-height: 50px;
       align-items: center;
@@ -20,6 +20,13 @@
       &--bottom {
          background-color: map-get($colors, backFilter);
          justify-content: flex-start;
+      }
+
+      &__section {
+         display: flex;
+         align-items: center;
+         color: map-get($colors, gray);
+         font-size: map-get($fontSizes, medium);
       }
    }
 }

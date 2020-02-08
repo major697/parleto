@@ -7,16 +7,64 @@ const WorkersModule = {
    state: {
       workers: [],
       workerAll: [],
+      filterSelect: {
+         search: null,
+         section: null,
+      },
    },
    actions: {
       [ActionsWorkers.FETCH_WORKERS]({ commit }) {
          commit(MutationsWorkers.SET_WORKERS, workersList);
       },
-      [ActionsWorkers.FETCH_SEARCH_WORKERS]({ commit }, payload) {
-         commit(MutationsWorkers.SET_SEARCH_WORKERS, { filter: payload, type: 'search' });
+      [ActionsWorkers.FETCH_SEARCH]({ commit }, payload) {
+         commit(MutationsWorkers.SET_SEARCH, payload);
       },
-      [ActionsWorkers.FETCH_SELECT_FILTERS_WORKERS]({ commit }, payload) {
-         commit(MutationsWorkers.SET_SEARCH_WORKERS, { filter: payload, type: 'section' });
+      [ActionsWorkers.FETCH_SECTION]({ commit }, payload) {
+         commit(MutationsWorkers.SET_SECTION, payload);
+      },
+      [ActionsWorkers.FETCH_FILTERS]({ commit, state }) {
+         let search = state.workerAll;
+
+         if (state.filterSelect.search) {
+            search = search.filter(worker => {
+               const dataFilter = {
+                  name: worker.name,
+                  surname: worker.surname,
+               };
+
+               for (let key in dataFilter) {
+                  if (
+                     String(worker[key])
+                        .toLowerCase()
+                        .indexOf(state.filterSelect.search.toLowerCase()) !== -1
+                  ) {
+                     return true;
+                  }
+               }
+               return false;
+            });
+         }
+
+         if (state.filterSelect.section) {
+            search = search.filter(worker => {
+               const dataFilter = {
+                  section: worker.section,
+               };
+
+               for (let key in dataFilter) {
+                  if (
+                     String(worker[key])
+                        .toLowerCase()
+                        .indexOf(state.filterSelect.section.toLowerCase()) !== -1
+                  ) {
+                     return true;
+                  }
+               }
+               return false;
+            });
+         }
+
+         commit(MutationsWorkers.SET_FETCH_FILTERS, search);
       },
    },
    mutations: {
@@ -24,37 +72,14 @@ const WorkersModule = {
          state.workerAll = payload;
          state.workers = payload;
       },
-      [MutationsWorkers.SET_SEARCH_WORKERS](state, payload) {
-         const { filter, type } = payload;
-
-         state.workers = state.workerAll.filter(worker => {
-            let dataFilter = {};
-
-            switch (type) {
-               case 'search':
-                  dataFilter = {
-                     name: worker.name,
-                     surname: worker.surname,
-                  };
-                  break;
-               case 'section':
-                  dataFilter = {
-                     section: worker.section,
-                  };
-                  break;
-            }
-
-            for (let key in dataFilter) {
-               if (
-                  String(worker[key])
-                     .toLowerCase()
-                     .indexOf(filter.toLowerCase()) !== -1
-               ) {
-                  return true;
-               }
-            }
-            return false;
-         });
+      [MutationsWorkers.SET_SEARCH](state, payload) {
+         state.filterSelect.search = payload;
+      },
+      [MutationsWorkers.SET_SECTION](state, payload) {
+         state.filterSelect.section = payload;
+      },
+      [MutationsWorkers.SET_FETCH_FILTERS](state, payload) {
+         state.workers = payload;
       },
    },
    getters: {

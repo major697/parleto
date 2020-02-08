@@ -5,6 +5,7 @@
       height: $heightFilter;
       box-sizing: border-box;
       padding: 0 map-get($margins, m1);
+      margin-left: map-get($margins, m1);
       font-size: map-get($fontSizes, medium);
 
       &:focus {

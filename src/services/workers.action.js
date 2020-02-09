@@ -1,18 +1,9 @@
-export const filterText = (dataAll, dataFilter, searchText) => {
-   console.log(dataAll);
-   console.log(dataFilter);
-   console.log(searchText);
-
-   dataAll = dataAll.filter(worker => {
-      for (let key in dataFilter) {
-         if (
-            String(worker[key])
-               .toLowerCase()
-               .indexOf(searchText.toLowerCase()) !== -1
-         ) {
-            return true;
-         }
+export const getSection = data => {
+   let section = [];
+   data.forEach(worker => {
+      if (section.indexOf(worker.section) < 0) {
+         section.push(worker.section);
       }
-      return false;
    });
+   return section;
 };

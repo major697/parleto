@@ -28,7 +28,7 @@
          cursor: pointer;
          top: 0;
          right: 3px;
-         font-size: map-get($fontSizes, body);
+         font-size: map-get($fontSizes, bigTitle);
          font-family: unset;
          transition: color $transition;
 
@@ -49,7 +49,6 @@
 
       &__body {
          font-size: map-get($fontSizes, body);
-         margin-top: map-get($margins, m2);
          padding: map-get($margins, m4);
       }
    }

@@ -30,3 +30,8 @@
       }
    }
 }
+
+.error {
+   color: map-get($colors, error);
+   font-size: map-get($fontSizes, label);
+}

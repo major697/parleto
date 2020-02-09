@@ -1,5 +1,6 @@
 import { ActionsWorkers, MutationsWorkers, GettersWorkers } from './types';
 import { workersList } from '@/services/workers';
+import { getSection } from '@/services/workers.action';
 
 const WorkersModule = {
    namespaced: true,
@@ -131,14 +132,10 @@ const WorkersModule = {
          return state.workers;
       },
       [GettersWorkers.GET_WORKERS_SECTION](state) {
-         let section = [];
-         state.workers.forEach(worker => {
-            if (section.indexOf(worker.section) < 0) {
-               section.push(worker.section);
-            }
-         });
-
-         return section;
+         return getSection(state.workers);
+      },
+      [GettersWorkers.GET_WORKERS_SECTION_ALL](state) {
+         return getSection(state.workersAll);
       },
       [GettersWorkers.GET_WORKERS_PAY_SECTION](state) {
          let paySection = {};

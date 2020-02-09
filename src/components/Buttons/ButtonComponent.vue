@@ -1,5 +1,5 @@
 <template>
-   <button class="button" @click="$emit('clickButton')">{{ name }}</button>
+   <button class="button" :type="type" @click="$emit('clickButton')">{{ name }}</button>
 </template>
 
 <style lang="scss" scoped>
@@ -13,6 +13,10 @@ export default {
       name: {
          type: String,
          required: true,
+      },
+      type: {
+         type: String,
+         default: 'button',
       },
    },
 };

@@ -1,0 +1,30 @@
+.input {
+   margin: map-get($margins, m5) 0;
+
+   &__label {
+      display: block;
+      font-size: map-get($fontSizes, label);
+      color: map-get($colors, gray);
+      margin: map-get($margins, m1) 0;
+   }
+
+   &__text {
+      border: 0;
+      border-bottom: 1px solid map-get($colors, gray);
+      width: 100%;
+
+      &:focus {
+         outline: none;
+      }
+   }
+
+   &__select {
+      width: 100%;
+      padding: map-get($margins, m1) 0;
+      border-color: map-get($colors, gray);
+
+      &:focus {
+         outline: none;
+      }
+   }
+}

@@ -4,7 +4,9 @@
          <div class="modal__container">
             <button class="modal__container__close" @click="$emit('closeModal')">x</button>
             <div class="modal__container__name">{{ title }}</div>
-            <div class="modal__container__body">xxxx</div>
+            <div class="modal__container__body">
+               <slot name="body"></slot>
+            </div>
          </div>
       </div>
    </div>

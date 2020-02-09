@@ -1,0 +1,56 @@
+.modal {
+   position: fixed;
+   z-index: 9;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: map-get($colors, backgroundModal);
+   display: table;
+
+   &__wrapper {
+      display: table-cell;
+      vertical-align: middle;
+   }
+
+   &__container {
+      max-width: 500px;
+      margin: 0px auto;
+      padding: map-get($margins, m4);
+      background-color: map-get($colors, white);
+      border-radius: $borderRadius;
+      position: relative;
+
+      &__close {
+         position: absolute;
+         background-color: transparent;
+         border: none;
+         cursor: pointer;
+         top: 0;
+         right: 3px;
+         font-size: map-get($fontSizes, body);
+         font-family: unset;
+         transition: color $transition;
+
+         &:hover {
+            color: map-get($colors, green);
+         }
+
+         &:focus {
+            outline: none;
+         }
+      }
+
+      &__name {
+         font-size: map-get($fontSizes, bigTitle);
+         border-bottom: 1px solid map-get($colors, lightGray);
+         padding-bottom: map-get($margins, m2);
+      }
+
+      &__body {
+         font-size: map-get($fontSizes, body);
+         margin-top: map-get($margins, m2);
+         padding: map-get($margins, m4);
+      }
+   }
+}

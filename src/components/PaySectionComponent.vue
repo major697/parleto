@@ -9,6 +9,9 @@
             <td class="table-body__element">{{ section }}</td>
             <td class="table-body__element">{{ pay }}</td>
          </tr>
+         <div v-show="!Object.keys(getPayAndSection).length" class="table__empty">
+            Brak danych do wyświetlenia, spróbuj innego filtrowania.
+         </div>
       </table>
    </div>
 </template>

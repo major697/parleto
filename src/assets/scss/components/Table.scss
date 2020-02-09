@@ -19,7 +19,13 @@
          border-bottom: 1px solid map-get($colors, lightGray);
          border-right: 1px solid map-get($colors, lightGray);
          border-left: 1px solid map-get($colors, lightGray);
-         
       }
+   }
+
+   &__empty {
+      width: 100%;
+      color: map-get($colors, gray);
+      font-size: map-get($fontSizes, medium);
+      margin: map-get($margins, m2) 0;
    }
 }

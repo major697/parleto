@@ -6,7 +6,7 @@ const WorkersModule = {
    strict: true,
    state: {
       workers: [],
-      workerAll: [],
+      workersAll: [],
       filterSelect: {
          search: null,
          section: null,
@@ -25,13 +25,13 @@ const WorkersModule = {
          commit(MutationsWorkers.SET_SECTION, payload);
       },
       [ActionsWorkers.FETCH_PAY_FROM]({ commit }, payload) {
-         commit(MutationsWorkers.SET_PAY_FROM, payload);
+         commit(MutationsWorkers.SET_PAY_FROM, payload.replace(/,/g, '.'));
       },
       [ActionsWorkers.FETCH_PAY_TO]({ commit }, payload) {
-         commit(MutationsWorkers.SET_PAY_TO, payload);
+         commit(MutationsWorkers.SET_PAY_TO, payload.replace(/,/g, '.'));
       },
       [ActionsWorkers.FETCH_FILTERS]({ commit, state }) {
-         let search = state.workerAll;
+         let search = state.workersAll;
 
          if (state.filterSelect.search) {
             search = search.filter(worker => {
@@ -107,7 +107,7 @@ const WorkersModule = {
    },
    mutations: {
       [MutationsWorkers.SET_WORKERS](state, payload) {
-         state.workerAll = payload;
+         state.workersAll = payload;
          state.workers = payload;
       },
       [MutationsWorkers.SET_SEARCH](state, payload) {

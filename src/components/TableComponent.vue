@@ -8,6 +8,9 @@
             <th class="table__header__title">Wynagrodzenie</th>
          </tr>
          <ListWorkerComponent v-for="(worker, i) in workers" :key="i" :worker="worker" />
+         <div v-show="!workers.length" class="table__empty">
+            Brak danych do wyświetlenia, spróbuj innego filtrowania.
+         </div>
       </table>
    </div>
 </template>

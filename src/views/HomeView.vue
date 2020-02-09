@@ -1,27 +1,31 @@
 <template>
-   <div class="home">
-      <div class="home__title">Tabela pracowników</div>
-      <div class="home__filters">
-         <div class="home__filters__section">
-            <span>Wynagrodzenie: </span>
-            <InputComponent placeholder="Od" size="1" @filterValue="filterPayFrom" />
-            <InputComponent placeholder="Do" size="1" @filterValue="filterPayTo" />
+   <div>
+      <div class="home">
+         <div class="home__title">Tabela pracowników</div>
+         <div class="home__filters">
+            <div class="home__filters__section">
+               <span>Wynagrodzenie: </span>
+               <InputComponent placeholder="Od" size="2" @filterValue="filterPayFrom" />
+               <InputComponent placeholder="Do" size="2" @filterValue="filterPayTo" />
+            </div>
+            <div class="home__filters__section">
+               <span>Szukaj: </span>
+               <InputComponent placeholder="Osoba" size="20" @filterValue="filterSearch" />
+               <ButtonComponent name="Dodaj pracownika" @clickButton="modal = true" />
+            </div>
          </div>
-         <div class="home__filters__section">
-            <span>Szukaj: </span>
-            <InputComponent placeholder="Osoba" size="20" @filterValue="filterSearch" />
+         <div class="home__filters home__filters--bottom">
+            <FlterButtonComponent
+               v-for="section in getSection"
+               :key="section"
+               :section="section"
+               @selectFilter="selectFilter"
+            />
          </div>
+         <TableComponent />
+         <PaySectionComponent />
       </div>
-      <div class="home__filters home__filters--bottom">
-         <FlterButtonComponent
-            v-for="section in getSection"
-            :key="section"
-            :section="section"
-            @selectFilter="selectFilter"
-         />
-      </div>
-      <TableComponent />
-      <PaySectionComponent />
+      <ModalComponent v-if="modal" @closeModal="modal = false" title="Dodaj pracownika" />
    </div>
 </template>
 
@@ -38,13 +42,16 @@ export default {
    data() {
       return {
          selectedSection: '',
+         modal: false,
       };
    },
    components: {
       InputComponent: () => import('@/components/Filters/InputComponent'),
       FlterButtonComponent: () => import('@/components/Filters/FlterButtonComponent'),
+      ButtonComponent: () => import('@/components/Buttons/ButtonComponent'),
       TableComponent: () => import('@/components/TableComponent'),
       PaySectionComponent: () => import('@/components/PaySectionComponent'),
+      ModalComponent: () => import('@/components/Modals/ModalComponent'),
    },
    computed: {
       getSection() {

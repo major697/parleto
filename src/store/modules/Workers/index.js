@@ -105,6 +105,9 @@ const WorkersModule = {
 
          commit(MutationsWorkers.SET_FETCH_FILTERS, search);
       },
+      async [ActionsWorkers.FETCH_ADD_WORKER]({ commit }, payload) {
+         await commit(MutationsWorkers.SET_ADD_WORKER, payload);
+      },
    },
    mutations: {
       [MutationsWorkers.SET_WORKERS](state, payload) {
@@ -125,6 +128,9 @@ const WorkersModule = {
       },
       [MutationsWorkers.SET_FETCH_FILTERS](state, payload) {
          state.workers = payload;
+      },
+      [MutationsWorkers.SET_ADD_WORKER](state, payload) {
+         state.workers.unshift(payload);
       },
    },
    getters: {

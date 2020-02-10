@@ -6,6 +6,7 @@ $heightFilter: 40px;
 $transition: 0.2s ease-in-out;
 
 $colors: (
+   shadow: #909090,
    black: #000000,
    white: #ffffff,
    error: #ec4c4c,
@@ -18,9 +19,9 @@ $colors: (
 );
 
 $fontSizes: (
-   body: 16px,
    medium: 14px,
    label: 12px,
+   body: 16px,
    bigTitle: 24px,
 );
 

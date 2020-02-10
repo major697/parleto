@@ -5,6 +5,7 @@ const ActionsWorkers = {
    FETCH_SECTION: 'FETCH_SECTION',
    FETCH_PAY_FROM: 'FETCH_PAY_FROM',
    FETCH_PAY_TO: 'FETCH_PAY_TO',
+   FETCH_ADD_WORKER: 'FETCH_ADD_WORKER',
 };
 
 const MutationsWorkers = {
@@ -14,6 +15,7 @@ const MutationsWorkers = {
    SET_SECTION: 'SET_SECTION',
    SET_PAY_FROM: 'SET_PAY_FROM',
    SET_PAY_TO: 'SET_PAY_TO',
+   SET_ADD_WORKER: 'SET_ADD_WORKER',
 };
 
 const GettersWorkers = {

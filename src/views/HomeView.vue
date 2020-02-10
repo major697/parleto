@@ -5,8 +5,8 @@
          <div class="home__filters">
             <div class="home__filters__section">
                <span>Wynagrodzenie: </span>
-               <InputComponent placeholder="Od" size="2" @filterValue="filterPayFrom" />
-               <InputComponent placeholder="Do" size="2" @filterValue="filterPayTo" />
+               <InputComponent placeholder="Od" size="3" @filterValue="filterPayFrom" />
+               <InputComponent placeholder="Do" size="3" @filterValue="filterPayTo" />
             </div>
             <div class="home__filters__section">
                <span>Szukaj: </span>
@@ -25,7 +25,7 @@
          <TableComponent />
          <PaySectionComponent />
       </div>
-      <ModalComponent v-if="modal" @closeModal="modal = false" title="Dodaj pracownika">
+      <ModalComponent v-if="modal" @closeModal="closeModal" title="Dodaj pracownika">
          <div slot="body">
             <ValidationObserver ref="formAddWorker">
                <form @submit.prevent="addWorker">
@@ -57,6 +57,7 @@
                      <label for="section" class="input__label">Dział</label>
                      <validation-provider rules="required" v-slot="{ errors }">
                         <select name="section" v-model="workerForm.section" class="input__select">
+                           <option disabled value="">Wybierz dział</option>
                            <option v-for="section in sections" :key="section" :value="section">{{
                               section
                            }}</option>
@@ -66,7 +67,7 @@
                   </div>
                   <div class="input">
                      <label for="pay" class="input__label">Wynagrodzenie</label>
-                     <validation-provider rules="required" v-slot="{ errors }">
+                     <validation-provider rules="required|numeric" v-slot="{ errors }">
                         <input
                            type="text"
                            class="input__text"
@@ -89,7 +90,10 @@
                         <span class="error">{{ errors[0] }}</span>
                      </validation-provider>
                   </div>
-                  <ButtonComponent name="Zapisz" type="submit" />
+                  <div class="input__button-pos">
+                     <ButtonComponent name="Anuluj" :close="true" @click.native="closeModal" />
+                     <ButtonComponent name="Zapisz" type="submit" />
+                  </div>
                </form>
             </ValidationObserver>
          </div>
@@ -106,11 +110,16 @@
 import { mapActions, mapGetters } from 'vuex';
 import { ActionsWorkers, GettersWorkers } from '@/store/modules/Workers/types';
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate';
-import { required } from 'vee-validate/dist/rules';
+import { required, numeric } from 'vee-validate/dist/rules';
 
 extend('required', {
    ...required,
    message: 'To pole jest wymagane.',
+});
+
+extend('numeric', {
+   ...numeric,
+   message: 'Wartość podaj w liczbie.',
 });
 
 export default {
@@ -124,7 +133,7 @@ export default {
             surname: '',
             section: '',
             pay: '',
-            currency: '',
+            currency: 'PLN',
          },
       };
    },
@@ -154,6 +163,7 @@ export default {
          ActionsWorkers.FETCH_SECTION,
          ActionsWorkers.FETCH_PAY_FROM,
          ActionsWorkers.FETCH_PAY_TO,
+         ActionsWorkers.FETCH_ADD_WORKER,
       ]),
       ...mapGetters('WorkersModule', [
          GettersWorkers.GET_WORKERS_SECTION,
@@ -183,10 +193,35 @@ export default {
          this.FETCH_SEARCH(value);
          this.FETCH_FILTERS();
       },
+      closeModal() {
+         this.modal = false;
+         this.resetForm();
+      },
+      resetForm() {
+         this.workerForm.name = '';
+         this.workerForm.surname = '';
+         this.workerForm.section = '';
+         this.workerForm.pay = '';
+         this.workerForm.currency = 'PLN';
+      },
       addWorker() {
          this.$refs.formAddWorker.validate().then(success => {
             if (success) {
-               console.log('dodaj');
+               const worker = {
+                  name: this.workerForm.name,
+                  surname: this.workerForm.surname,
+                  section: this.workerForm.section,
+                  pay: this.workerForm.pay,
+                  currency: this.workerForm.currency,
+               };
+               this.FETCH_ADD_WORKER(worker)
+                  .then(() => {
+                     console.log('dodano');
+                     this.modal = false;
+                     this.resetForm();
+                     this.$toasted.show('Pracownik został dodany poprawnie.');
+                  })
+                  .catch(error => console.error(error));
             }
          });
       },

@@ -17,4 +17,15 @@
    &:focus {
       outline: none;
    }
+
+   &--close {
+      border: 0;
+      color: map-get($colors, gray);
+
+      &:hover {
+         border-color: none;
+         color: map-get($colors, green);
+         background-color: map-get($colors, white);
+      }
+   }
 }

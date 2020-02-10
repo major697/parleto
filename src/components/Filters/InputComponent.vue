@@ -4,9 +4,11 @@
          type="text"
          class="search__input"
          :placeholder="placeholder"
-         @keyup="$emit('filterValue', $event.target.value)"
+         @keyup="searchText"
          :size="size"
+         v-model="text"
       />
+      <span class="search__image" v-show="close" @click="closeSearchText" title="Usuń"></span>
    </div>
 </template>
 
@@ -17,6 +19,12 @@
 <script>
 export default {
    name: 'InputComponent',
+   data() {
+      return {
+         text: '',
+         close: false,
+      };
+   },
    props: {
       placeholder: {
          type: String,
@@ -25,6 +33,21 @@ export default {
       size: {
          type: String,
          default: '20',
+      },
+   },
+   methods: {
+      searchText() {
+         if (this.text === '') {
+            this.close = false;
+         } else {
+            this.close = true;
+         }
+         this.$emit('filterValue', this.text);
+      },
+      closeSearchText() {
+         this.text = '';
+         this.close = false;
+         this.$emit('filterValue', '');
       },
    },
 };

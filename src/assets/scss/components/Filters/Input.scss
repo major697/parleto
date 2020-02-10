@@ -1,15 +1,29 @@
 .search {
+   position: relative;
+
    &__input {
       border: 1px solid map-get($colors, gray);
       border-radius: $borderRadius;
       height: $heightFilter;
       box-sizing: border-box;
-      padding: 0 map-get($margins, m1);
+      padding: 0 map-get($margins, m4) 0 map-get($margins, m1);
       margin-left: map-get($margins, m1);
       font-size: map-get($fontSizes, medium);
+      position: relative;
 
       &:focus {
          outline: none;
       }
+   }
+
+   &__image {
+      position: absolute;
+      background-image: url('~@/assets/img/close.svg');
+      top: 50%;
+      transform: translateY(-50%);
+      right: 1px;
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
    }
 }

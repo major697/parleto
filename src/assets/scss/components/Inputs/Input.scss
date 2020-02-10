@@ -22,9 +22,16 @@
       width: 100%;
       padding: map-get($margins, m1) 0;
       border-color: map-get($colors, gray);
+      border-radius: $borderRadius;
 
       &:focus {
          outline: none;
       }
+   }
+
+   &__button-pos {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
    }
 }
